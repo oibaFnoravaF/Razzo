@@ -21,7 +21,8 @@ public class Obstacle  : MonoBehaviour
 
         /*float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize;
         Vector2 randomDirection = Random.insideUnitCircle;
-        rb.AddForce(randomDirection * randomSpeed);*/
+        rb.AddForce(randomDirection * randomSpeed);
+        */
 
         float randomTorque = Random.Range(-maxSpinSpeed, maxSpinSpeed);
         rb.AddTorque(randomTorque);

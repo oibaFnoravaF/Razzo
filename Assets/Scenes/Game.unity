@@ -1370,10 +1370,10 @@ MonoBehaviour:
   death: 0
   flame: {fileID: 367652278}
   scoreMultiplier: 10
+  spawnRate: 1
   uiDocument: {fileID: 1348273730}
   explosionEffect: {fileID: 3239517913457818320, guid: cbad4cff9561bbe4897689807ee68be9, type: 3}
   borderParent: {fileID: 1971869272}
-  cameraPosition: {fileID: 0}
 --- !u!114 &1812714445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1389,6 +1389,8 @@ MonoBehaviour:
   minRadius: 12
   maxRadius: 16
   poolSize: 20
+  minSpeed: 50
+  maxSpeed: 150
   obstacle: {fileID: 8624827317071610660, guid: 418da45984f651b449ab5bb320984494, type: 3}
   parent: {fileID: 633948511}
   player: {fileID: 1812714443}

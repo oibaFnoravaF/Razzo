@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviour
     private float score = 0f;
     public float scoreMultiplier = 10f;
     private float hscore;
-    private int frame = 0;
+    private float timer = 0f;
+    public float spawnRate = 1f;
     public UIDocument uiDocument;
     private Label scoreText;
     private Button restartButton;
     private Label highScoreText;
     public GameObject explosionEffect;
     public GameObject borderParent;
-    public GameObject cameraPosition;
     private NewObstacle newObt;
     private Rigidbody2D rb;
 
@@ -58,10 +58,12 @@ public class PlayerController : MonoBehaviour
         UpdateScore();
         MovePlayer();
         
-        frame++;
-        if (frame % 60 == 0)
+        timer += Time.deltaTime;
+        if (timer>=spawnRate)
         {
             newObt.spawnObstacle();
+            timer = 0f;
+            
             
         }
         
@@ -124,6 +126,7 @@ public class PlayerController : MonoBehaviour
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             flame.SetActive(false);
+            rb.angularVelocity = rb.angularVelocity/2;
         }
     }
 

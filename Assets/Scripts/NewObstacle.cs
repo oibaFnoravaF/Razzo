@@ -11,6 +11,8 @@ public class NewObstacle : MonoBehaviour
     public float minRadius = 14f;
     public float maxRadius = 18f;
     public int poolSize = 20;
+    public float minSpeed = 100f;
+    public float maxSpeed = 200f;
     public GameObject obstacle;
     public Transform parent;
     public Transform player;
@@ -35,9 +37,7 @@ public class NewObstacle : MonoBehaviour
     {
         foreach(var obj in pool)
         {
-            ifToDespawnObstacle(obj);
-            Vector3 dir = (player.position - obj.transform.position).normalized;
-            obj.GetComponent<Rigidbody2D>().AddForce(dir);
+            ifToDespawnObstacle(obj);      
         }
        
     }
@@ -61,11 +61,10 @@ public class NewObstacle : MonoBehaviour
         foreach(var obj in pool)
         {
             if (!obj.activeInHierarchy)
-            {               
-                obj.transform.position = generateRandomPosition();
-
-                
+            {                         
                 obj.SetActive(true);
+                
+                aimToPlayer(obj);
                 return ;
             }
         }
@@ -73,20 +72,35 @@ public class NewObstacle : MonoBehaviour
         GameObject newobj = cloneObstacle();
         
         newobj.SetActive(true);
+        aimToPlayer(newobj);
         pool.Add(newobj);
-        return ;
-
-
     }
 
     void ifToDespawnObstacle(GameObject obj)
     {
-        if((player.position - obj.transform.position).magnitude > 30)
+       
+        if(Vector3.Distance(player.position, obj.transform.position) > 30)
         {
             obj.SetActive(false);
         }
     }
 
+    void aimToPlayer(GameObject obstacle)
+    {
+        Rigidbody2D obstacleRigidB = obstacle.GetComponent<Rigidbody2D>();
+
+        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        obstacle.transform.position = generateRandomPosition();  
+        
+        Vector2 direction =(player.position - obstacleRigidB.transform.position).normalized;
+
+        float variation = Random.Range(-0.3f, 0.3f);
+        direction += new Vector2(variation, variation);
+
+        direction.Normalize();
+        obstacleRigidB.AddForce(direction*randomSpeed); 
+
+    }
 
     Vector3 generateRandomPosition()
     {
@@ -97,6 +111,6 @@ public class NewObstacle : MonoBehaviour
         return player.position + pos;
     }
 
-    
+  
 
 }
