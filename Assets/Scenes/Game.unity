@@ -1367,10 +1367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   thrustForce: 5
   maxSpeed: 5
-  death: 0
+  death: 1
   flame: {fileID: 367652278}
   scoreMultiplier: 10
-  spawnRate: 1
+  spawnRate: 60
   uiDocument: {fileID: 1348273730}
   explosionEffect: {fileID: 3239517913457818320, guid: cbad4cff9561bbe4897689807ee68be9, type: 3}
   borderParent: {fileID: 1971869272}
@@ -1388,6 +1388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewObstacle
   minRadius: 12
   maxRadius: 16
+  deSpawnRange: 60
   poolSize: 20
   minSpeed: 50
   maxSpeed: 150

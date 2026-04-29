@@ -8,11 +8,13 @@ public class NewObstacle : MonoBehaviour
 {
 
     
-    public float minRadius = 14f;
-    public float maxRadius = 18f;
-    public int poolSize = 20;
+    public float minRadius = 25f;
+    public float maxRadius = 40f;
+    public int deSpawnRange = 60;
+    public int poolSize = 50;
     public float minSpeed = 100f;
     public float maxSpeed = 200f;
+    private int numeratore = 1;
     public GameObject obstacle;
     public Transform parent;
     public Transform player;
@@ -46,11 +48,11 @@ public class NewObstacle : MonoBehaviour
     {
          
         obstacleCopy = Instantiate(obstacle, generateRandomPosition(), Quaternion.identity, parent);
-        
+        obstacleCopy.name = "Obstacle " + numeratore++;
         SpriteRenderer sprite = obstacleCopy.GetComponent<SpriteRenderer>();
         sprite.color = Color.purple;
 
-
+        
         obstacleCopy.SetActive(false);
         return obstacleCopy;
     }
@@ -61,10 +63,12 @@ public class NewObstacle : MonoBehaviour
         foreach(var obj in pool)
         {
             if (!obj.activeInHierarchy)
-            {                         
+            {                  
+                obj.transform.position = generateRandomPosition();        
                 obj.SetActive(true);
+                obj.GetComponent<Obstacle>().speedUp(obj.GetComponent<Rigidbody2D>());
                 
-                aimToPlayer(obj);
+                //aimToPlayer(obj);
                 return ;
             }
         }
@@ -72,14 +76,14 @@ public class NewObstacle : MonoBehaviour
         GameObject newobj = cloneObstacle();
         
         newobj.SetActive(true);
-        aimToPlayer(newobj);
+        //aimToPlayer(newobj);
         pool.Add(newobj);
     }
 
     void ifToDespawnObstacle(GameObject obj)
     {
        
-        if(Vector3.Distance(player.position, obj.transform.position) > 30)
+        if(Vector3.Distance(player.position, obj.transform.position) > deSpawnRange)
         {
             obj.SetActive(false);
         }

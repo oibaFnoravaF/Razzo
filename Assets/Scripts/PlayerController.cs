@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float scoreMultiplier = 10f;
     private float hscore;
     private float timer = 0f;
-    public float spawnRate = 1f;
+    public int spawnRate = 60;
     public UIDocument uiDocument;
     private Label scoreText;
     private Button restartButton;
@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
         highScoreText.style.display = DisplayStyle.None;
         restartButton.style.display = DisplayStyle.None;
         restartButton.clicked += ReloadScene;
+
+        
         
 
     }
@@ -58,14 +60,19 @@ public class PlayerController : MonoBehaviour
         UpdateScore();
         MovePlayer();
         
-        timer += Time.deltaTime;
+        timer ++;
+      
+        
         if (timer>=spawnRate)
         {
             newObt.spawnObstacle();
+         
             timer = 0f;
+
             
             
         }
+
         
     }
 
